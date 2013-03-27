@@ -69,12 +69,6 @@ sub BUILD {
     # startup
     $self->startup;
 
-    # add helpers for "app_controller_class"
-    my $meta = $self->app_controller_class->meta;
-    for my $name (keys %{$self->helpers}) {
-        $meta->add_method($name => $self->helpers->{$name});
-    }
-
     if ($self->lint) {
         # lint your application routes
         # - app_controller_classにKukuru::Controllerが継承されているか

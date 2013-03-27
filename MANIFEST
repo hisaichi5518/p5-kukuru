@@ -16,8 +16,12 @@ lib/Kukuru/Router.pm
 lib/Kukuru/Test.pm
 lib/Kukuru/Transaction.pm
 lib/Kukuru/Util.pm
+LICENSE
 Makefile.PL
 MANIFEST			This list of files
+META.json
+META.yml
+README
 README.mkdn
 t/kukuru-controller/dispatch.t
 t/kukuru-controller/flash.t
@@ -61,6 +65,7 @@ t/kukuru-router/add_route.t
 t/kukuru-router/routes.t
 t/kukuru-test/test_app.t
 t/kukuru-transation/_dispatch.t
+t/kukuru-transation/before_dispatch.t
 t/kukuru-transation/dispatch.t
 t/kukuru-transation/hooks.t
 t/kukuru-transation/select_controller_class.t
@@ -71,13 +76,10 @@ t/kukuru/app_controller_class.t
 t/kukuru/build/add_helpers.t
 t/kukuru/build/startup.t
 t/kukuru/controller_class.t
+t/kukuru/default_headers.t
 t/kukuru/emit_hook.t
 t/kukuru/exception_class.t
 t/kukuru/load_plugin.t
 t/kukuru/request_class.t
 t/kukuru/to_psgi/blessed_app.t
 xt/perlcritic.t
-README
-LICENSE
-META.yml
-META.json

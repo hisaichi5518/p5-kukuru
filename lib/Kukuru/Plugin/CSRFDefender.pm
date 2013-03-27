@@ -41,7 +41,7 @@ sub csrf_token {
     my ($class, $tx) = @_;
 
     $tx->req->session->set(
-        '__csrf_token' => join '', shuffle(('a'..'z', 'A'..'Z', 0..9))
+        '__csrf_token' => substr(join('', shuffle(('a'..'z', 'A'..'Z', 0..9))), 0, 31)
     );
 }
 

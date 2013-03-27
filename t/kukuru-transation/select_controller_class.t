@@ -32,7 +32,7 @@ sub tx {
 subtest 'select_controller_class' => sub {
     my $tx = tx();
 
-    is $tx->select_controller_class(), 'MyApp::Controller';
+    is $tx->select_controller_class(), 'Kukuru::Controller';
 };
 
 subtest 'HashRef' => sub {

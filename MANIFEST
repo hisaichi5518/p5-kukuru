@@ -69,7 +69,6 @@ t/kukuru-util/load_class.t
 t/kukuru/add_hook.t
 t/kukuru/app_controller_class.t
 t/kukuru/build/add_helpers.t
-t/kukuru/build/auto_build_controller.t
 t/kukuru/build/startup.t
 t/kukuru/controller_class.t
 t/kukuru/emit_hook.t

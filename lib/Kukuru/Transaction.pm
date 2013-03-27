@@ -104,7 +104,7 @@ sub select_controller_class {
         );
     }
     else {
-        $self->app->app_controller_class;
+        $self->app->controller_class;
     }
 }
 

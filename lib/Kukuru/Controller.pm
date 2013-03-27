@@ -3,6 +3,7 @@ use strict;
 use warnings;
 
 use Carp ();
+use Scalar::Util ();
 use Mouse;
 
 has [qw(tx)] => (
@@ -128,6 +129,19 @@ sub dispatch {
         status => 404,
         text   => 'Not Found Page',
     );
+}
+
+sub AUTOLOAD {
+    my $self = shift;
+
+    my ($package, $method) = our $AUTOLOAD =~ /^([\w:]+)::(\w+)$/;
+    Carp::croak "Undefined subroutine &${package}::$method called"
+        unless Scalar::Util::blessed $self && $self->isa(__PACKAGE__);
+
+    # Call helper with current controller
+    Carp::croak qq{Can't locate object method "$method" via package "$package"}
+        unless my $helper = $self->app->helpers->{$method};
+    return $self->$helper(@_);
 }
 
 __PACKAGE__->meta->make_immutable;

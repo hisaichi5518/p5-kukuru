@@ -59,21 +59,8 @@ no Mouse;
 
 sub BUILD {
     my ($self) = @_;
-
-    # auto-build controller if fail load "app_controller_class"
-    if (Kukuru::Util::try_load_one_class($self->app_controller_class)) {
-        my $meta = Mouse->init_meta(for_class => $self->app_controller_class);
-        $meta->superclasses($self->controller_class);
-    }
-
     # startup
     $self->startup;
-
-    # add helpers for "app_controller_class"
-    my $meta = $self->app_controller_class->meta;
-    for my $name (keys %{$self->helpers}) {
-        $meta->add_method($name => $self->helpers->{$name});
-    }
 
     if ($self->lint) {
         # lint your application routes

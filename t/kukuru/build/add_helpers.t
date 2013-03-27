@@ -11,20 +11,34 @@ use Test::More;
         my ($self) = @_;
         $self->helpers->{fly} = sub {
             my $c = shift;
+            return 1;
         };
     }
 
+    package MyApp::Controller;
+    use Mouse;
+    extends 'Kukuru::Controller';
+
+    sub index {}
 }
 
-subtest 'add helpers' => sub {
+use Kukuru::Test;
+use HTTP::Request::Common;
+test_app
+    app => MyApp->new(),
+    client => sub {
+        my ($cb) = @_;
+        my ($res, $tx) = $cb->(GET '/');
+        my $c = $tx->_last_controller_object;
+        is $c->fly, 1;
 
-    ok !MyApp::Controller->can('fly');
+        eval { MyApp::Controller->not_found_method };
+        ok $@;
+        like $@, qr/Undefined subroutine/;
 
-    # BUILD!
-    my $app = MyApp->new;
-
-    ok MyApp::Controller->can('fly');
-
-};
+        eval { $c->not_found_method };
+        ok $@;
+        like $@, qr/Can't locate object method/;
+    };
 
 done_testing;

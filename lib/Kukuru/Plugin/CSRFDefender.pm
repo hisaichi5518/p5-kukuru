@@ -31,7 +31,7 @@ sub init {
         $$output =~ s|
             (<form\s*[^>]*method="POST"[^>]*>)
         |
-            qq!$1\n<input type="hidden" name="__csrf_token" value="@{[$class->csrf_token($tx)]}" />!
+            qq{$1\n<input type="hidden" name="__csrf_token" value="}.$class->csrf_token($tx).qq{" />}
         |igxe;
     });
 }

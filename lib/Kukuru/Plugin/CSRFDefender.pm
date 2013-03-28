@@ -16,7 +16,7 @@ sub init {
             if (!$param_token || !$session_token || ($param_token ne $session_token)) {
                 return $app->exception_class->throw(
                     status  => 403,
-                    message => "error: csrf token",
+                    message => "Session validation failed.",
                 );
             }
         }

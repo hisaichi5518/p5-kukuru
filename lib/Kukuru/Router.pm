@@ -40,7 +40,7 @@ sub add_route {
     my ($self, $method, $path, $dest, $opts) = @_;
 
     if (!$method || !$path || !$dest) {
-        Carp::craok('required method/path/dest');
+        Carp::croak('required method/path/dest');
     }
 
     $opts ||= {};

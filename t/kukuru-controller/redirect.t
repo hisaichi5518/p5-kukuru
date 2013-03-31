@@ -31,6 +31,13 @@ subtest 'with path' => sub {
     is $res->location, 'http://localhost/';
 };
 
+subtest 'with string' => sub {
+    my $c = MyApp::Controller::Root->new(tx => tx());
+    my $res = $c->redirect('test');
+
+    is $res->location, 'test';
+};
+
 subtest 'with ArrayRef' => sub {
     my $c = MyApp::Controller::Root->new(tx => tx());
     my $res = $c->redirect([test => 1]);

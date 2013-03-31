@@ -35,4 +35,10 @@ subtest 'args is String and ArrayRef' => sub {
     is $c->uri_for('/', [test => 'あいうえお']), "http://localhost/?test=%E3%81%82%E3%81%84%E3%81%86%E3%81%88%E3%81%8A";
 };
 
+subtest 'error' => sub {
+    my $c = MyApp::Controller::Root->new(tx => tx());
+    eval { $c->uri_for('test') };
+    like $@, qr{path must begin with /};
+};
+
 done_testing;

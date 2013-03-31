@@ -60,6 +60,10 @@ sub redirect {
 
 sub uri_for {
     my ($self, $path, $params) = @_;
+    if (!($path =~ m{^/})) {
+        Carp::croak("path must begin with /.");
+    }
+
     my $uri = $self->req->base;
     $path = $uri->path eq '/' ? $path : $uri->path.$path;
 

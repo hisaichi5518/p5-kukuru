@@ -38,6 +38,13 @@ subtest 'with ArrayRef' => sub {
     is $res->location, 'http://localhost/?test=1';
 };
 
+subtest 'with http://localhost/' => sub {
+    my $c = MyApp::Controller::Root->new(tx => tx());
+    my $res = $c->redirect("http://localhost/");
+
+    is $res->location, 'http://localhost/';
+};
+
 subtest 'with status' => sub {
     my $c = MyApp::Controller::Root->new(tx => tx());
     my $res = $c->redirect('/', 301);

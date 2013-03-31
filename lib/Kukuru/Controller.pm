@@ -47,7 +47,7 @@ sub redirect {
     if (ref $uri eq 'ARRAY') {
         $uri = $self->uri_with($uri);
     }
-    else {
+    elsif ($uri =~ m{^/}) {
         $uri = $self->uri_for($uri);
     }
 

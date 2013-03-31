@@ -11,4 +11,4 @@ script:
     - "make test"
 notifications:
   email:
-    - herarans@gmail.com
+    - hisada-kazuki@gmail.com

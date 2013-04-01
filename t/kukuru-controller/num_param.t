@@ -17,7 +17,7 @@ use Kukuru::Transaction;
 }
 
 sub tx {
-    my $stuff = Hash::MultiValue->new(foo => '1', test => "hoge");
+    my $stuff = Hash::MultiValue->new(int => 1, str => "hoge", float => 0.01);
     my $req   = Kukuru::Request->new({
         'kukuru.request.body'  => $stuff,
         'kukuru.request.query' => $stuff,
@@ -29,15 +29,21 @@ sub tx {
     );
 }
 
+subtest 'int' => sub {
+    my $c = MyApp::Controller::Root->new(tx => tx());
+    my $val = $c->num_param('int');
+    is $val, 1;
+};
+
 subtest 'num' => sub {
     my $c = MyApp::Controller::Root->new(tx => tx());
-    my $val = $c->num_param('foo');
-    is $val, 1;
+    my $val = $c->num_param('float');
+    is $val, 0.01;
 };
 
 subtest 'str' => sub {
     my $c = MyApp::Controller::Root->new(tx => tx());
-    my $val = $c->num_param('test');
+    my $val = $c->num_param('str');
     is $val, undef;
 };
 

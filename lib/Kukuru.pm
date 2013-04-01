@@ -35,10 +35,6 @@ has renderer => (
     default => sub { Kukuru::Renderer->new }
 );
 
-has template_engine => (
-    is => 'rw',
-);
-
 has lint => (
     is => 'rw',
     default => 1,

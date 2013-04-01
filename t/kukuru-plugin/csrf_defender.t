@@ -11,11 +11,11 @@ use Test::More;
 
     sub startup {
         my ($self) = @_;
-        $self->template_engine(
+        $self->renderer->engines->{template} = do {
             Text::Xslate->new(
                 path => [{index => qq!<form action="/" method="post">!}],
             )
-        );
+        };
         $self->load_plugin('CSRFDefender');
         $self->router->get('/' => sub {
             my ($c) = @_;

@@ -11,7 +11,7 @@ use Kukuru::Renderer::Data;
 use Mouse;
 use Carp ();
 
-has handlers => (
+has [qw(handlers engines)] => (
     is => 'rw',
     default => sub { +{} },
 );

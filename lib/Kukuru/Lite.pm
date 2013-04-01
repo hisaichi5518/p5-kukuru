@@ -1,8 +1,6 @@
 package Kukuru::Lite;
-use strict;
-use warnings;
-use Mouse::Util ();
 use Mouse ();
+use Mouse::Util ();
 
 sub import {
     my ($class) = @_;

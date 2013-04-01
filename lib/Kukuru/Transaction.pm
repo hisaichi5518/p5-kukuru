@@ -108,4 +108,4 @@ sub select_controller_class {
     }
 }
 
-__PACKAGE__->meta->make_immutable;
+1;

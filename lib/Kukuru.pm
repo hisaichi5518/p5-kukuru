@@ -1,7 +1,6 @@
 package Kukuru;
 use 5.10.1;
-use strict;
-use warnings;
+use Mouse;
 
 our $VERSION = "0.01";
 
@@ -13,7 +12,6 @@ use Kukuru::Renderer;
 use Kukuru::Transaction;
 use Kukuru::Exception;
 
-use Mouse;
 
 has router => (
     is => 'rw',
@@ -117,7 +115,7 @@ sub exception_class  { 'Kukuru::Exception'  }
 
 sub app_controller_class { shift->meta->name."::Controller" }
 
-__PACKAGE__->meta->make_immutable;
+1;
 __END__
 
 =head1 NAME

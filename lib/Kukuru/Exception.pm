@@ -1,8 +1,6 @@
 package Kukuru::Exception;
-use strict;
-use warnings;
-use overload q[""] => \&stringify, fallback => 1;
 use Mouse;
+use overload q[""] => \&stringify, fallback => 1;
 
 has [qw/message file line/] => (
     is => 'rw',
@@ -61,4 +59,4 @@ sub stringify {
     }
 }
 
-__PACKAGE__->meta->make_immutable;
+1;

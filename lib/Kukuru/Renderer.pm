@@ -1,15 +1,12 @@
 package Kukuru::Renderer;
-use strict;
-use warnings;
+use Mouse;
+use Carp ();
 
 use Kukuru::Renderer::Template;
 use Kukuru::Renderer::Exception;
 use Kukuru::Renderer::Text;
 use Kukuru::Renderer::JSON;
 use Kukuru::Renderer::Data;
-
-use Mouse;
-use Carp ();
 
 has [qw(handlers engines)] => (
     is => 'rw',
@@ -64,4 +61,4 @@ sub render {
     }
 }
 
-__PACKAGE__->meta->make_immutable;
+1;

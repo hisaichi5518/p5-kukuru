@@ -1,10 +1,7 @@
 package Kukuru::Controller;
-use strict;
-use warnings;
-
+use Mouse;
 use Carp ();
 use Scalar::Util ();
-use Mouse;
 
 has [qw(tx)] => (
     is => 'rw',
@@ -163,4 +160,4 @@ sub AUTOLOAD {
     return $self->$helper(@_);
 }
 
-__PACKAGE__->meta->make_immutable;
+1;

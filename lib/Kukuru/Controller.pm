@@ -84,6 +84,21 @@ sub uri_with {
     $uri;
 }
 
+sub str_param {
+    my ($self, $key) = @_;
+    my $val = $self->param($key);
+    return $val."";
+}
+
+sub num_param {
+    my ($self, $key) = @_;
+    my $val = $self->param($key);
+    if ($val =~ /^\d+(?:\.\d+)?$/) {
+        return $val + 0;
+    }
+    return undef;
+}
+
 sub param     { shift->req->param(@_)     }
 sub param_raw { shift->req->param_raw(@_) }
 sub session   { shift->req->session(@_)   }

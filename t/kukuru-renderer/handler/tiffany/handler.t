@@ -20,9 +20,11 @@ use Encode;
     sub startup {
         my ($self) = @_;
 
-        $self->template_engine(Text::Xslate->new(
-            path => [File::Spec->catdir(dirname(__FILE__), 'views')],
-        ));
+        $self->renderer->engines->{template} = do {
+            Text::Xslate->new(
+                path => [File::Spec->catdir(dirname(__FILE__), 'views')],
+            );
+        };
 
         $self->add_hook('html_filter' => sub {
             my ($app, $tx, $output) = @_;
@@ -81,6 +83,8 @@ use Encode;
 
 my $app = eval { MyApp->to_psgi };
 ok !$@;
+warn $@ if $@;
+
 
 test_psgi
     app => $app,

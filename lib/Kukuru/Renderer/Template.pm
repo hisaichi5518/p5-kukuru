@@ -9,7 +9,8 @@ sub handler {
     my $status       = $vars{status} || 200;
     my $format       = $vars{format} || 'html';
     my $content_type = $vars{type};
-    my $output       = $tx->app->template_engine->render($template, {c => $c, %vars});
+    my $engine       = $tx->app->renderer->engines->{template} or die "Can't find tempalte engine.";
+    my $output       = $engine->render($template, {c => $c, %vars});
 
     if (!$content_type) {
         $content_type = Kukuru::Util::find_content_type(

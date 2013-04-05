@@ -36,4 +36,17 @@ sub try_load_one_class {
     Mouse::Util::_try_load_one_class($klass);
 }
 
+sub generate_random_string {
+    my ($max) = @_;
+
+    my $random_str;
+    my @chars = ('a'..'z', 'A'..'Z', 0..9);
+    for (0..$max) {
+        $random_str .= $chars[int rand @chars];
+    }
+
+    $random_str;
+}
+
+
 1;

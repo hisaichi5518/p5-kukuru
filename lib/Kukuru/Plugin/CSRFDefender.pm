@@ -1,6 +1,7 @@
 package Kukuru::Plugin::CSRFDefender;
 use strict;
 use warnings;
+use Kukuru::Util;
 
 sub init {
     my ($class, $app, $options) = @_;
@@ -39,12 +40,7 @@ sub init {
 sub csrf_token {
     my ($class, $tx) = @_;
 
-    my $token;
-    my @chars = ('a'..'z', 'A'..'Z', 0..9);
-    for (0..31) {
-        $token .= $chars[int rand @chars];
-    }
-
+    my $token = Kukuru::Util::generate_random_string(32);
     $tx->req->session->set(
         '__csrf_token' => $token
     );

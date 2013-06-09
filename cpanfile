@@ -6,6 +6,12 @@ requires 'URI' => 1.59;
 requires 'Plack' => 0.9986;
 requires 'Plack::Middleware::Session' => 0.15;
 requires 'JSON::XS' => 2.32;
+requires 'HTTP::Cookies';
+requires 'Hash::MultiValue';
+requires 'LWP::UserAgent';
+requires 'OAuth::Lite2';
+requires 'OAuth::Lite';
+requires 'URI::Escape';
 
 on test => sub {
     requires 'Test::More' => 0.98;

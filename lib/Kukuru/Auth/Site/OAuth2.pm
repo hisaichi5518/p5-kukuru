@@ -1,7 +1,6 @@
 package Kukuru::Auth::Site::OAuth2;
 use Mouse;
 use LWP::UserAgent;
-use OAuth::Lite2::Util;
 use Kukuru::Util;
 use Kukuru::Util::OAuth2;
 

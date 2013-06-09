@@ -9,7 +9,6 @@ requires 'JSON::XS' => 2.32;
 requires 'HTTP::Cookies';
 requires 'Hash::MultiValue';
 requires 'LWP::UserAgent';
-requires 'OAuth::Lite2';
 requires 'OAuth::Lite';
 requires 'URI::Escape';
 

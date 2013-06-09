@@ -33,7 +33,7 @@ has renderer => (
     default => sub { Kukuru::Renderer->new }
 );
 
-has lint => (
+has use_lint => (
     is => 'rw',
     default => 1,
 );
@@ -56,7 +56,7 @@ sub BUILD {
     # startup
     $self->startup;
 
-    if ($self->lint) {
+    if ($self->use_lint) {
         # lint your application routes
         # - app_controller_classにKukuru::Controllerが継承されているか
         # - Controllerにextendsされているか

@@ -12,10 +12,14 @@ use Kukuru::Renderer;
 use Kukuru::Transaction;
 use Kukuru::Exception;
 
-
 has router => (
     is => 'rw',
     default => sub { Kukuru::Router->new },
+);
+
+has renderer => (
+    is => 'rw',
+    default => sub { Kukuru::Renderer->new }
 );
 
 has helpers => (
@@ -28,16 +32,6 @@ has hooks => (
     default => sub { +{} },
 );
 
-has renderer => (
-    is => 'rw',
-    default => sub { Kukuru::Renderer->new }
-);
-
-has use_lint => (
-    is => 'rw',
-    default => 1,
-);
-
 has default_headers => (
     is => 'rw',
     default => sub {
@@ -47,6 +41,11 @@ has default_headers => (
             "X-Content-Type-Options" => "nosniff",
         ];
     },
+);
+
+has use_lint => (
+    is => 'rw',
+    default => 1,
 );
 
 no Mouse;
@@ -113,7 +112,11 @@ sub request_class    { 'Kukuru::Request'    }
 sub controller_class { 'Kukuru::Controller' }
 sub exception_class  { 'Kukuru::Exception'  }
 
-sub app_controller_class { shift->meta->name."::Controller" }
+sub app_controller_class {
+    my ($self) = @_;
+    my $name = blessed $self ? ref($self) : $self;
+    "${name}::Controller";
+}
 
 1;
 __END__

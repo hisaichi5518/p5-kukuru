@@ -1,8 +1,28 @@
 use strict;
 use warnings;
-use utf8;
 use Test::More;
 use Kukuru::Renderer;
+
+subtest 'BUILD' => sub {
+    my $renderer = Kukuru::Renderer->new;
+
+    my @handlers = qw(template text json data);
+    isa_ok $renderer->handlers->{$_}, 'CODE', $_ for @handlers;
+};
+
+subtest 'add_handler' => sub {
+    my $renderer = Kukuru::Renderer->new;
+    ok !$renderer->handlers->{test};
+    $renderer->add_handler('test' => sub {});
+
+    isa_ok $renderer->handlers, 'HASH';
+    isa_ok $renderer->handlers->{test}, 'CODE';
+};
+
+subtest 'handlers' => sub {
+    my $renderer = Kukuru::Renderer->new;
+    isa_ok $renderer->handlers, 'HASH';
+};
 
 subtest 'render with template' => sub {
     my $renderer = Kukuru::Renderer->new;

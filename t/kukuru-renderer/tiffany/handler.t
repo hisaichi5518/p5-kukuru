@@ -26,7 +26,7 @@ use Encode;
             );
         };
 
-        $self->add_hook('html_filter' => sub {
+        $self->event_emitter->on('html_filter' => sub {
             my ($app, $tx, $output) = @_;
             $$output = "html-filter" if $tx->req->path_info eq '/html-filter';
         });

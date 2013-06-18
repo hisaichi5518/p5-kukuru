@@ -11,21 +11,21 @@ use Kukuru::Transaction;
 
     sub startup {
         my ($self) = @_;
-        $self->add_hook(after_build_tx => sub {
-            my ($app, $tx) = @_;
-            $app->{after_build_tx}++;
+        $self->event_emitter->on(after_build_tx => sub {
+            my ($emitter, $tx) = @_;
+            $tx->app->{after_build_tx}++;
             $tx->{after_build_tx}++;
         });
 
-        $self->add_hook(before_dispatch => sub {
-            my ($app, $tx) = @_;
-            $app->{before_dispatch}++;
+        $self->event_emitter->on(before_dispatch => sub {
+            my ($emitter, $tx) = @_;
+            $tx->app->{before_dispatch}++;
             $tx->{before_dispatch}++;
         });
 
-        $self->add_hook(after_dispatch => sub {
-            my ($app, $tx, $res) = @_;
-            $app->{after_dispatch}++;
+        $self->event_emitter->on(after_dispatch => sub {
+            my ($emitter, $tx, $res) = @_;
+            $tx->app->{after_dispatch}++;
             $tx->{after_dispatch}++;
         });
     }

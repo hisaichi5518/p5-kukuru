@@ -19,7 +19,7 @@ sub handler {
         )
     }
 
-    $tx->app->emit_hook('html_filter', $tx, \$output);
+    $tx->app->event_emitter->emit('html_filter', $tx, \$output);
 
     $output = $tx->req->encoding->encode($output);
     my $headers = [

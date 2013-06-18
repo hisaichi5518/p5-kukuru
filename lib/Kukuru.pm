@@ -4,13 +4,16 @@ use Mouse;
 
 our $VERSION = "0.01";
 
+use Kukuru::Router;
+use Kukuru::Renderer;
+use Kukuru::EventEmitter;
+
 use Kukuru::Request;
 use Kukuru::Controller;
-use Kukuru::Router;
-use Kukuru::Util;
-use Kukuru::Renderer;
-use Kukuru::Transaction;
 use Kukuru::Exception;
+
+use Kukuru::Transaction;
+use Kukuru::Util;
 
 has router => (
     is => 'rw',
@@ -22,12 +25,12 @@ has renderer => (
     default => sub { Kukuru::Renderer->new }
 );
 
-has helpers => (
-    is => 'rw',
-    default => sub { +{} },
+has event_emitter => (
+    is => "rw",
+    default => sub { Kukuru::EventEmitter->new },
 );
 
-has hooks => (
+has helpers => (
     is => 'rw',
     default => sub { +{} },
 );
@@ -84,26 +87,6 @@ sub load_plugin {
     my $klass = Kukuru::Util::load_class($plugin, 'Kukuru::Plugin');
 
     $klass->init($self, $options || {});
-}
-
-sub add_hook {
-    my ($self, $name, $code) = @_;
-    push @{$self->hooks->{$name} ||= []}, $code;
-}
-
-sub emit_hook {
-    my ($self, $name, @args) = @_;
-    my @codes = $self->find_hook_codes($name);
-
-    for my $code (@codes) {
-        $code->($self, @args);
-    }
-}
-
-sub find_hook_codes {
-    my ($self, $name) = @_;
-
-    @{$self->hooks->{$name} || []};
 }
 
 sub startup {}

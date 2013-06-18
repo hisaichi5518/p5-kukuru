@@ -17,14 +17,6 @@ subtest 'app isa __PACKAGE__' => sub {
     isa_ok app, __PACKAGE__;
 };
 
-subtest 'add hook' => sub {
-    is scalar(keys %{app->hooks || {}}), 0;
-
-    hook 'test' => sub {};
-
-    is scalar(keys %{app->hooks || {}}), 1;
-};
-
 subtest 'add plugin' => sub {
     ok !app->{loaded_plguin};
 

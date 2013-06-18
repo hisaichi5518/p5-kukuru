@@ -18,7 +18,7 @@ sub test_app {
 
     local $_tx;
     if (!$app->{$package}{added_hook_for_test}) {
-        unshift @{$app->hooks->{after_build_tx} ||= []}, sub {
+        unshift @{$app->event_emitter->events->{after_build_tx} ||= []}, sub {
             $_tx = $_[1];
         };
 

@@ -12,20 +12,6 @@ use Test::More;
     extends 'Kukuru';
 }
 
-subtest 'add hook' => sub {
-    my $app = MyApp->new;
-
-    is scalar(@{$app->hooks->{hook} || []}), 0;
-
-    $app->add_hook(hook => sub {});
-
-    is scalar(@{$app->hooks->{hook} || []}), 1;
-
-    $app->add_hook(hook => sub {});
-
-    is scalar(@{$app->hooks->{hook} || []}), 2;
-};
-
 subtest 'app_controller_class' => sub {
     my $class = "MyApp";
     my $app   = $class->new;
@@ -52,34 +38,6 @@ subtest 'default_headers' => sub {
     is $h->get("X-XSS-Protection"), "1; mode=block";
     is $h->get("X-Frame-Options"), "SAMEORIGIN";
     is $h->get("X-Content-Type-Options"), "nosniff";
-};
-
-subtest 'emit hook' => sub {
-    my $app = MyApp->new;
-    my $count;
-    $app->add_hook(test => sub {$count++});
-    $app->add_hook(test => sub {$count++});
-
-    $app->emit_hook('test');
-    is $count, 2;
-
-    $app->emit_hook('test');
-    is $count, 4;
-};
-
-subtest 'emit hook with args' => sub {
-    my $app = MyApp->new;
-    my $count;
-    $app->add_hook(test => sub {
-        my ($app, @args) = @_;
-        $count = $args[0];
-    });
-
-    $app->emit_hook('test', 1);
-    is $count, 1;
-
-    $app->emit_hook('test', 2);
-    is $count, 2;
 };
 
 subtest 'exception_class' => sub {

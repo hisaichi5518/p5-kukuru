@@ -6,7 +6,7 @@ use Kukuru::Util;
 sub init {
     my ($class, $app, $options) = @_;
 
-    $app->add_hook('before_dispatch' => sub {
+    $app->event_emitter->on('before_dispatch' => sub {
         my ($app, $tx) = @_;
 
         my $req = $tx->req;
@@ -26,7 +26,7 @@ sub init {
 
     });
 
-    $app->add_hook('html_filter' => sub {
+    $app->event_emitter->on('html_filter' => sub {
         my ($app, $tx, $output) = @_;
 
         $$output =~ s|

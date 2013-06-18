@@ -39,7 +39,7 @@ subtest "has_subscribers" => sub {
 subtest "subscribers" => sub {
     my $e = Kukuru::EventEmitter->new;
 
-    is $e->subscribers("test"), undef;
+    is_deeply $e->subscribers("test"), [];
 
     $e->on("test" => sub { });
 

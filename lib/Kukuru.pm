@@ -35,11 +35,6 @@ has helpers => (
     default => sub { +{} },
 );
 
-has hooks => (
-    is => 'rw',
-    default => sub { +{} },
-);
-
 has default_headers => (
     is => 'rw',
     default => sub {
@@ -92,26 +87,6 @@ sub load_plugin {
     my $klass = Kukuru::Util::load_class($plugin, 'Kukuru::Plugin');
 
     $klass->init($self, $options || {});
-}
-
-sub add_hook {
-    my ($self, $name, $code) = @_;
-    push @{$self->hooks->{$name} ||= []}, $code;
-}
-
-sub emit_hook {
-    my ($self, $name, @args) = @_;
-    my @codes = $self->find_hook_codes($name);
-
-    for my $code (@codes) {
-        $code->($self, @args);
-    }
-}
-
-sub find_hook_codes {
-    my ($self, $name) = @_;
-
-    @{$self->hooks->{$name} || []};
 }
 
 sub startup {}

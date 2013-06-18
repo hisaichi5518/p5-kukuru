@@ -11,7 +11,7 @@ use Kukuru::Transaction;
 
     sub startup {
         my ($self) = @_;
-        $self->add_hook(before_dispatch => sub {
+        $self->event_emitter->on(before_dispatch => sub {
             my ($app, $tx) = @_;
 
             $app->exception_class->throw(

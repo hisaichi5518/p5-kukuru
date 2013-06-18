@@ -21,7 +21,6 @@ sub import {
         %methods,
         app    => sub { $app },
         plugin => sub { $app->load_plugin(@_) },
-        hook   => sub { $app->add_hook(@_) },
     );
 }
 

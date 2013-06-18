@@ -21,7 +21,7 @@ no Mouse;
 
 sub BUILD {
     my ($self) = @_;
-    $self->app->emit_hook("after_build_tx", $self);
+    $self->app->event_emitter->emit("after_build_tx", $self);
 }
 
 sub dispatch {
@@ -36,8 +36,8 @@ sub dispatch {
     }
 
     my $res = eval {
-        my @codes = $self->app->find_hook_codes("before_dispatch");
-        for my $code (@codes) {
+        my $codes = $self->app->event_emitter->subscribers("before_dispatch");
+        for my $code (@$codes) {
             my $res = $code->($self->app, $self);
             return $res if $res && blessed($res);
         }
@@ -59,7 +59,7 @@ sub dispatch {
     elsif (!$res) {
         die "Can't found response object in action.";
     }
-    $self->app->emit_hook("after_dispatch", $self, $res);
+    $self->app->event_emitter->emit("after_dispatch", $self, $res);
 
     $res;
 }

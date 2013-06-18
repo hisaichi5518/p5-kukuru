@@ -27,12 +27,12 @@ sub emit {
 
 sub has_subscribers {
     my ($self, $name) = @_;
-    $self->subscribers($name) ? 1 : 0;
+    @{$self->subscribers($name)} ? 1 : 0;
 }
 
 sub subscribers {
     my ($self, $name) = @_;
-    $self->events->{$name};
+    $self->events->{$name} || [];
 }
 
 sub unsubscribe {

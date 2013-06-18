@@ -28,7 +28,7 @@ test_app
         is $res->code, 200;
         is $tx->{test}, 1;
 
-        is $tx->app->{'Kukuru::Test'}{added_hook_for_test}, 1;
+        is $tx->app->{'Kukuru::Test'}{added_event_for_test}, 1;
         is scalar(@{$tx->app->event_emitter->events->{after_build_tx}}), 1;
     }
 ;

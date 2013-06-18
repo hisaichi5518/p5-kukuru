@@ -17,12 +17,12 @@ sub test_app {
     my $package  = __PACKAGE__;
 
     local $_tx;
-    if (!$app->{$package}{added_hook_for_test}) {
+    if (!$app->{$package}{added_event_for_test}) {
         unshift @{$app->event_emitter->events->{after_build_tx} ||= []}, sub {
             $_tx = $_[1];
         };
 
-        $app->{$package}{added_hook_for_test}++;
+        $app->{$package}{added_event_for_test}++;
     }
 
     $args{client} = sub {

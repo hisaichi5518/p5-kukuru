@@ -36,7 +36,7 @@ sub tx {
 subtest 'return response object at before_dispatch' => sub {
     my $tx = tx();
     my $res = $tx->dispatch();
-    is_deeply $res->content, ["Forbidden"];
+    like $res->content->[0], qr/Forbidden/;
 };
 
 done_testing;

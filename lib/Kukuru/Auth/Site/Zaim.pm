@@ -41,6 +41,7 @@ sub auth_uri {
     ) or die $self->_consumer->errstr;
 
     $c->session->set(request_token => $request_token);
+
     $self->_consumer->url_to_authorize(token => $request_token);
 }
 
@@ -60,9 +61,8 @@ sub callback {
     if ($@) {
         return $on_error->($@);
     }
-    else {
-        return $on_finished->($access_token);
-    }
+
+    return $on_finished->($access_token);
 }
 
 1;

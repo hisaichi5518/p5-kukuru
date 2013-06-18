@@ -33,11 +33,12 @@ no Mouse;
 sub auth_uri {
     my ($self, $c, %args) = @_;
     my $callback_uri = $args{callback};
-    my $nt = $self->_nt;
+    my $nt           = $self->_nt;
     my $redirect_uri = $nt->get_authorization_url(callback => $callback_uri);
 
     $c->session->set(request_token => $nt->request_token);
     $c->session->set(request_token_secret => $nt->request_token_secret);
+
     return $redirect_uri;
 }
 
@@ -50,7 +51,7 @@ sub callback {
         return $callbacks{on_error}->("denied");
     }
 
-    my $request_token = $c->session->remove('request_token');
+    my $request_token        = $c->session->remove('request_token');
     my $request_token_secret = $c->session->remove('request_token_secret');
 
     if (!$request_token || !$request_token_secret) {
@@ -68,6 +69,7 @@ sub callback {
     if ($@) {
         return $on_error->($@);
     }
+
     return $on_finished->(
         $access_token, $access_token_secret, $user_id, $screen_name
     );

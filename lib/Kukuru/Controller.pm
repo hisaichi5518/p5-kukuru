@@ -17,8 +17,6 @@ no Mouse;
 sub req { shift->tx->req }
 sub app { shift->tx->app }
 
-# TODO: render_*
-# render_template, render_action, render_file, render_data, render_text
 sub render {
     my $self = shift;
     my $template;
@@ -33,10 +31,6 @@ sub render {
         @_,
     );
 }
-
-# TODO: send_*系
-# send_file, send_data
-
 
 sub redirect {
     my ($self, $uri, $status) = @_;

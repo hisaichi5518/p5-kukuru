@@ -17,28 +17,38 @@ use Test::More;
 
     package MyApp::Controller;
     use Mouse;
+    use Test::More;
     extends 'Kukuru::Controller';
-
-    sub index {}
 }
 
-use Kukuru::Test;
-use HTTP::Request::Common;
-test_app
-    app => MyApp->new(),
-    client => sub {
-        my ($cb) = @_;
-        my ($res, $tx) = $cb->(GET '/');
-        my $c = $tx->_last_controller_object;
-        is $c->fly, 1;
 
-        eval { MyApp::Controller->not_found_method };
-        ok $@;
-        like $@, qr/Undefined subroutine/;
+my $app = MyApp->new;
+sub tx {
+    my $req = Kukuru::Request->new({});
 
-        eval { $c->not_found_method };
-        ok $@;
-        like $@, qr/Can't locate object method/;
-    };
+    Kukuru::Transaction->new(
+        app   => $app,
+        req   => $req,
+        match => undef,
+    );
+}
+
+my $c = MyApp::Controller->new(
+    app  => tx()->app,
+    tx   => tx(),
+    args => {},
+);
+
+is $c->fly, 1;
+
+eval { MyApp::Controller->not_found_method() };
+ok $@;
+like $@, qr/Undefined subroutine/;
+
+eval { $c->not_found_method };
+ok $@;
+like $@, qr/Can't locate object method/;
+
+
 
 done_testing;

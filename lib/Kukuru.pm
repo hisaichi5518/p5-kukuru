@@ -4,13 +4,16 @@ use Mouse;
 
 our $VERSION = "0.01";
 
+use Kukuru::Router;
+use Kukuru::Renderer;
+use Kukuru::EventEmitter;
+
 use Kukuru::Request;
 use Kukuru::Controller;
-use Kukuru::Router;
-use Kukuru::Util;
-use Kukuru::Renderer;
-use Kukuru::Transaction;
 use Kukuru::Exception;
+
+use Kukuru::Transaction;
+use Kukuru::Util;
 
 has router => (
     is => 'rw',
@@ -20,6 +23,11 @@ has router => (
 has renderer => (
     is => 'rw',
     default => sub { Kukuru::Renderer->new }
+);
+
+has event_emitter => (
+    is => "rw",
+    default => sub { Kukuru::EventEmitter->new },
 );
 
 has helpers => (

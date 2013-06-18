@@ -11,6 +11,7 @@ requires 'Hash::MultiValue';
 requires 'LWP::UserAgent';
 requires 'OAuth::Lite';
 requires 'URI::Escape';
+requires 'Exception::Tiny';
 
 on test => sub {
     requires 'Test::More' => 0.98;

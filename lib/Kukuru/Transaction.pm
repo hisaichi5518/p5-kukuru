@@ -45,10 +45,10 @@ sub dispatch {
         $self->_dispatch($match);
     };
     if (my $e = $@) {
-        if ((ref $e || '') eq $self->app->exception_class) {
+        if ($self->app->exception_class->caught($e)) {
             $res = $self->app->renderer->render(
                 $self, undef,
-                exception => $e->stringify,
+                exception => "$e",
                 status    => $e->status,
             );
         }

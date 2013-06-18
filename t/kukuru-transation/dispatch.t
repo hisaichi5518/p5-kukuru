@@ -26,7 +26,7 @@ use Test::LeakTrace;
 
     sub exception2 {
         my ($self) = @_;
-        $self->app->exception_class->croak("FUCK2");
+        $self->app->exception_class->throw("FUCK2");
     }
 }
 
